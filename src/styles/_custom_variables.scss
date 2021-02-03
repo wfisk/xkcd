@@ -1,0 +1,323 @@
+$gray-01: #eff2f4;
+$gray-02: #dfe6ea;
+$gray-03: #d5dadd;
+$gray-04: #c6cacc;
+$gray-05: #b2b8bc;
+$gray-06: #99a0a5;
+$gray-07: #80878b;
+$gray-08: #686e71;
+$gray-09: #55595b;
+$gray-10: #3c4448;
+$gray-11: #262f32;
+$gray-12: #1c2629;
+
+// Green
+$green: #00684b;
+$green-050: tint-color($green, 90%) !default;
+$green-100: tint-color($green, 80%) !default;
+$green-200: tint-color($green, 60%) !default;
+$green-300: tint-color($green, 40%) !default;
+$green-400: tint-color($green, 20%) !default;
+$green-500: $green !default;
+$green-600: shade-color($green, 20%) !default;
+$green-700: shade-color($green, 40%) !default;
+$green-800: shade-color($green, 60%) !default;
+$green-900: shade-color($green, 80%) !default;
+$green-950: shade-color($green, 90%) !default;
+
+// Light Green
+$light-green: #57af80;
+$light-green-050: tint-color($light-green, 90%) !default;
+$light-green-100: tint-color($light-green, 80%) !default;
+$light-green-200: tint-color($light-green, 60%) !default;
+$light-green-300: tint-color($light-green, 40%) !default;
+$light-green-400: tint-color($light-green, 20%) !default;
+$light-green-500: $light-green !default;
+$light-green-600: shade-color($light-green, 20%) !default;
+$light-green-700: shade-color($light-green, 40%) !default;
+$light-green-800: shade-color($light-green, 60%) !default;
+$light-green-900: shade-color($light-green, 80%) !default;
+$light-green-950: shade-color($light-green, 90%) !default;
+
+// Ruby (Moscow)
+$ruby: #901526;
+$ruby-050: tint-color($ruby, 90%) !default;
+$ruby-100: tint-color($ruby, 80%) !default;
+$ruby-200: tint-color($ruby, 60%) !default;
+$ruby-300: tint-color($ruby, 40%) !default;
+$ruby-400: tint-color($ruby, 20%) !default;
+$ruby-500: $ruby !default;
+$ruby-600: shade-color($ruby, 20%) !default;
+$ruby-700: shade-color($ruby, 40%) !default;
+$ruby-800: shade-color($ruby, 60%) !default;
+$ruby-900: shade-color($ruby, 80%) !default;
+$ruby-950: shade-color($ruby, 90%) !default;
+
+// Red (Delphi)
+$red: #e03a4c;
+$red-050: tint-color($red, 90%) !default;
+$red-100: tint-color($red, 80%) !default;
+$red-200: tint-color($red, 60%) !default;
+$red-300: tint-color($red, 40%) !default;
+$red-400: tint-color($red, 20%) !default;
+$red-500: $red !default;
+$red-600: shade-color($red, 20%) !default;
+$red-700: shade-color($red, 40%) !default;
+$red-800: shade-color($red, 60%) !default;
+$red-900: shade-color($red, 80%) !default;
+$red-950: shade-color($red, 90%) !default;
+
+// Pink (Sao Paulo)
+$pink: #e5989f;
+$pink-050: tint-color($pink, 90%) !default;
+$pink-100: tint-color($pink, 80%) !default;
+$pink-200: tint-color($pink, 60%) !default;
+$pink-300: tint-color($pink, 40%) !default;
+$pink-400: tint-color($pink, 20%) !default;
+$pink-500: $pink !default;
+$pink-600: shade-color($pink, 20%) !default;
+$pink-700: shade-color($pink, 40%) !default;
+$pink-800: shade-color($pink, 60%) !default;
+$pink-900: shade-color($pink, 80%) !default;
+$pink-950: shade-color($pink, 90%) !default;
+
+// Orange (Shanghai)
+$orange: #f28b32;
+$orange-050: tint-color($orange, 90%) !default;
+$orange-100: tint-color($orange, 80%) !default;
+$orange-200: tint-color($orange, 60%) !default;
+$orange-300: tint-color($orange, 40%) !default;
+$orange-400: tint-color($orange, 20%) !default;
+$orange-500: $orange !default;
+$orange-600: shade-color($orange, 20%) !default;
+$orange-700: shade-color($orange, 40%) !default;
+$orange-800: shade-color($orange, 60%) !default;
+$orange-900: shade-color($orange, 80%) !default;
+$orange-950: shade-color($orange, 90%) !default;
+
+// Yellow (New York)
+$yellow: #fed812;
+$yellow-050: tint-color($yellow, 90%) !default;
+$yellow-100: tint-color($yellow, 80%) !default;
+$yellow-200: tint-color($yellow, 60%) !default;
+$yellow-300: tint-color($yellow, 40%) !default;
+$yellow-400: tint-color($yellow, 20%) !default;
+$yellow-500: $yellow !default;
+$yellow-600: shade-color($yellow, 20%) !default;
+$yellow-700: shade-color($yellow, 40%) !default;
+$yellow-800: shade-color($yellow, 60%) !default;
+$yellow-900: shade-color($yellow, 80%) !default;
+$yellow-950: shade-color($yellow, 90%) !default;
+
+// Sky Blue (Oslo)
+$sky-blue: #93d5f6;
+$sky-blue-050: tint-color($sky-blue, 90%) !default;
+$sky-blue-100: tint-color($sky-blue, 80%) !default;
+$sky-blue-200: tint-color($sky-blue, 60%) !default;
+$sky-blue-300: tint-color($sky-blue, 40%) !default;
+$sky-blue-400: tint-color($sky-blue, 20%) !default;
+$sky-blue-500: $sky-blue !default;
+$sky-blue-600: shade-color($sky-blue, 20%) !default;
+$sky-blue-700: shade-color($sky-blue, 40%) !default;
+$sky-blue-800: shade-color($sky-blue, 60%) !default;
+$sky-blue-900: shade-color($sky-blue, 80%) !default;
+$sky-blue-950: shade-color($sky-blue, 90%) !default;
+
+// Blue (Toronto)
+$blue: #1f7dbc;
+$blue-050: tint-color($blue, 90%) !default;
+$blue-100: tint-color($blue, 80%) !default;
+$blue-200: tint-color($blue, 60%) !default;
+$blue-300: tint-color($blue, 40%) !default;
+$blue-400: tint-color($blue, 20%) !default;
+$blue-500: $blue !default;
+$blue-600: shade-color($blue, 20%) !default;
+$blue-700: shade-color($blue, 40%) !default;
+$blue-800: shade-color($blue, 60%) !default;
+$blue-900: shade-color($blue, 80%) !default;
+$blue-950: shade-color($blue, 90%) !default;
+
+// Lavender (Syndey)
+$lavender: #9f86be;
+$lavender-050: tint-color($lavender, 90%) !default;
+$lavender-100: tint-color($lavender, 80%) !default;
+$lavender-200: tint-color($lavender, 60%) !default;
+$lavender-300: tint-color($lavender, 40%) !default;
+$lavender-400: tint-color($lavender, 20%) !default;
+$lavender-500: $lavender !default;
+$lavender-600: shade-color($lavender, 20%) !default;
+$lavender-700: shade-color($lavender, 40%) !default;
+$lavender-800: shade-color($lavender, 60%) !default;
+$lavender-900: shade-color($lavender, 80%) !default;
+$lavender-950: shade-color($lavender, 90%) !default;
+
+// Purple (Cairo)
+$purple: #4f2f6c;
+$purple-050: tint-color($purple, 90%) !default;
+$purple-100: tint-color($purple, 80%) !default;
+$purple-200: tint-color($purple, 60%) !default;
+$purple-300: tint-color($purple, 40%) !default;
+$purple-400: tint-color($purple, 20%) !default;
+$purple-500: $purple !default;
+$purple-600: shade-color($purple, 20%) !default;
+$purple-700: shade-color($purple, 40%) !default;
+$purple-800: shade-color($purple, 60%) !default;
+$purple-900: shade-color($purple, 80%) !default;
+$purple-950: shade-color($purple, 90%) !default;
+
+$primary: $green;
+$info: $sky-blue;
+$link: $blue;
+$success: $light-green;
+$warning: $orange;
+$danger: $red;
+
+$custom-base-colors: (
+  'green': $green,
+  'light-green': $light-green,
+  'ruby': $ruby,
+  'red': $red,
+  'pink': $pink,
+  'orange': $orange,
+  'yellow': $yellow,
+  'sky-blue': $sky-blue,
+  'blue': $blue,
+  'lavender': $lavender,
+  'purple': $purple
+);
+
+// Create your own map
+$custom-colors: (
+  'green': $green,
+  'green-050': $green-050,
+  'green-100': $green-100,
+  'green-200': $green-200,
+  'green-300': $green-300,
+  'green-400': $green-400,
+  'green-500': $green-500,
+  'green-600': $green-600,
+  'green-700': $green-700,
+  'green-800': $green-800,
+  'green-900': $green-900,
+  'green-950': $green-950,
+  'light-green': $light-green,
+  'light-green-050': $light-green-050,
+  'light-green-100': $light-green-100,
+  'light-green-200': $light-green-200,
+  'light-green-300': $light-green-300,
+  'light-green-400': $light-green-400,
+  'light-green-500': $light-green-500,
+  'light-green-600': $light-green-600,
+  'light-green-700': $light-green-700,
+  'light-green-800': $light-green-800,
+  'light-green-900': $light-green-900,
+  'light-green-950': $light-green-950,
+  'ruby': $ruby,
+  'ruby-050': $ruby-050,
+  'ruby-100': $ruby-100,
+  'ruby-200': $ruby-200,
+  'ruby-300': $ruby-300,
+  'ruby-400': $ruby-400,
+  'ruby-500': $ruby-500,
+  'ruby-600': $ruby-600,
+  'ruby-700': $ruby-700,
+  'ruby-800': $ruby-800,
+  'ruby-900': $ruby-900,
+  'ruby-950': $ruby-950,
+  'red': $red,
+  'red-050': $red-050,
+  'red-100': $red-100,
+  'red-200': $red-200,
+  'red-300': $red-300,
+  'red-400': $red-400,
+  'red-500': $red-500,
+  'red-600': $red-600,
+  'red-700': $red-700,
+  'red-800': $red-800,
+  'red-900': $red-900,
+  'red-950': $red-950,
+  'pink': $pink,
+  'pink-050': $pink-050,
+  'pink-100': $pink-100,
+  'pink-200': $pink-200,
+  'pink-300': $pink-300,
+  'pink-400': $pink-400,
+  'pink-500': $pink-500,
+  'pink-600': $pink-600,
+  'pink-700': $pink-700,
+  'pink-800': $pink-800,
+  'pink-900': $pink-900,
+  'pink-950': $pink-950,
+  'orange': $orange,
+  'orange-050': $orange-050,
+  'orange-100': $orange-100,
+  'orange-200': $orange-200,
+  'orange-300': $orange-300,
+  'orange-400': $orange-400,
+  'orange-500': $orange-500,
+  'orange-600': $orange-600,
+  'orange-700': $orange-700,
+  'orange-800': $orange-800,
+  'orange-900': $orange-900,
+  'orange-950': $orange-950,
+  'yellow': $yellow,
+  'yellow-050': $yellow-050,
+  'yellow-100': $yellow-100,
+  'yellow-200': $yellow-200,
+  'yellow-300': $yellow-300,
+  'yellow-400': $yellow-400,
+  'yellow-500': $yellow-500,
+  'yellow-600': $yellow-600,
+  'yellow-700': $yellow-700,
+  'yellow-800': $yellow-800,
+  'yellow-900': $yellow-900,
+  'yellow-950': $yellow-950,
+  'sky-blue': $sky-blue,
+  'sky-blue-050': $sky-blue-050,
+  'sky-blue-100': $sky-blue-100,
+  'sky-blue-200': $sky-blue-200,
+  'sky-blue-300': $sky-blue-300,
+  'sky-blue-400': $sky-blue-400,
+  'sky-blue-500': $sky-blue-500,
+  'sky-blue-600': $sky-blue-600,
+  'sky-blue-700': $sky-blue-700,
+  'sky-blue-800': $sky-blue-800,
+  'sky-blue-900': $sky-blue-900,
+  'sky-blue-950': $sky-blue-950,
+  'blue': $blue,
+  'blue-050': $blue-050,
+  'blue-100': $blue-100,
+  'blue-200': $blue-200,
+  'blue-300': $blue-300,
+  'blue-400': $blue-400,
+  'blue-500': $blue-500,
+  'blue-600': $blue-600,
+  'blue-700': $blue-700,
+  'blue-800': $blue-800,
+  'blue-900': $blue-900,
+  'blue-950': $blue-950,
+  'lavender': $lavender,
+  'lavender-050': $lavender-050,
+  'lavender-100': $lavender-100,
+  'lavender-200': $lavender-200,
+  'lavender-300': $lavender-300,
+  'lavender-400': $lavender-400,
+  'lavender-500': $lavender-500,
+  'lavender-600': $lavender-600,
+  'lavender-700': $lavender-700,
+  'lavender-800': $lavender-800,
+  'lavender-900': $lavender-900,
+  'lavender-950': $lavender-950,
+  'purple': $purple,
+  'purple-050': $purple-050,
+  'purple-100': $purple-100,
+  'purple-200': $purple-200,
+  'purple-300': $purple-300,
+  'purple-400': $purple-400,
+  'purple-500': $purple-500,
+  'purple-600': $purple-600,
+  'purple-700': $purple-700,
+  'purple-800': $purple-800,
+  'purple-900': $purple-900,
+  'purple-950': $purple-950
+);

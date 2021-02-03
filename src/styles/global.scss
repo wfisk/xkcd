@@ -1,0 +1,26 @@
+@charset "utf-8";
+@import './custom_bootstrap.scss';
+
+/* @import 'src/styles/fonts.scss'; */
+/*  @import './src/styles/typography.scss'; */
+
+// your global styles
+
+body {
+  padding: 0;
+}
+
+p.foo {
+  color: red;
+  display: flex;
+}
+
+.navbar {
+  margin: 0 -15px;
+}
+
+:root {
+  @each $color, $value in $custom-colors {
+    --#{$color}: #{$value};
+  }
+}
