@@ -10,8 +10,8 @@ export default class DrawingGizmo extends EntityGizmo {
   update() {
     super.update(...arguments);
 
-    return this.ΔskeletonGizmo != null
-      ? this.ΔskeletonGizmo
+    return this._delta_skeletonGizmo != null
+      ? this._delta_skeletonGizmo
           .selectAll('.cmx-control')
           .attr('cx', (bone) => bone.x)
           .attr('cy', (bone) => bone.y)
@@ -22,7 +22,7 @@ export default class DrawingGizmo extends EntityGizmo {
   build() {
     const base = super.build(...arguments);
 
-    this.ΔskeletonGizmo = base
+    this._delta_skeletonGizmo = base
       .append('g')
       .attr('class', 'cmx-gizmo cmx-drawing');
 
@@ -54,7 +54,7 @@ export default class DrawingGizmo extends EntityGizmo {
       });
 
     const data = this.entity.skelet.bonesWithIndices(this.entity.drawingBones);
-    this.ΔskeletonGizmo
+    this._delta_skeletonGizmo
       .selectAll('.cmx-control')
       .data(data)
       .enter()
@@ -64,6 +64,6 @@ export default class DrawingGizmo extends EntityGizmo {
       .on('dblclick', doubleClick)
       .call(drag);
 
-    return this.ΔskeletonGizmo;
+    return this._delta_skeletonGizmo;
   }
 }

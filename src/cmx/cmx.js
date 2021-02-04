@@ -10,7 +10,7 @@ import Renderer from './Renderer';
 import Scene from './Scene';
 import Skelet from './Skelet';
 import View from './View';
-import XKCD from './XKCD';
+import Xkcd from './Xkcd';
 
 import Actor from './entities/Actor';
 import Bubble from './entities/Bubble';
@@ -34,7 +34,7 @@ const cmx = new Controller();
 cmx['Model'] = Model;
 cmx['View'] = View;
 cmx['Drawable'] = Drawable;
-cmx['XKCD'] = XKCD;
+cmx['Xkcd'] = Xkcd;
 cmx['Bone'] = Bone;
 cmx['Skelet'] = Skelet;
 cmx['Scene'] = Scene;

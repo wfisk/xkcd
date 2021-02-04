@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 
-import Xkcd from './XKCD';
+import Xkcd from './Xkcd';
 
 // magic evaluator
 const ξ = function (thing, fn) {
@@ -27,7 +27,7 @@ const ξ = function (thing, fn) {
 };
 
 // execute a render call (call properties are bound to this)
-var render = function (Δroot, back, Δbefore) {
+var render = function (_delta_root, back, _delta_before) {
   if (back == null) {
     back = false;
   }
@@ -46,52 +46,52 @@ var render = function (Δroot, back, Δbefore) {
   };
 
   if (this.type === 'close group') {
-    return d3.select(Δroot.node().parentNode);
+    return d3.select(_delta_root.node().parentNode);
   }
 
-  let Δel = Δroot;
-  if (Δbefore) {
-    Δel = Δel.insert('g', Δbefore);
+  let _delta_el = _delta_root;
+  if (_delta_before) {
+    _delta_el = _delta_el.insert('g', _delta_before);
   }
-  Δel = Δel.append('g');
+  _delta_el = _delta_el.append('g');
   if (this['class']) {
-    Δel.attr('class', this['class']);
+    _delta_el.attr('class', this['class']);
   }
   if (this['data']) {
-    Δel.property('cmx', this['data']);
+    _delta_el.property('cmx', this['data']);
   }
   dynamic(this['t'], function (val) {
     if (val) {
-      return Δel.attr('transform', val);
+      return _delta_el.attr('transform', val);
     }
   });
 
   // grouping
   if (this.type === 'open group') {
-    return Δel;
+    return _delta_el;
   }
 
   // render text
   if (this.type === 'text') {
-    let Δtext;
-    Δel = Δel.append('g').attr('transform', 'scale(1, -1)'); // flip y
+    let _delta_text;
+    _delta_el = _delta_el.append('g').attr('transform', 'scale(1, -1)'); // flip y
     if (back) {
-      Δtext = Δel.append('text').attr('class', 'cmx-text');
-      const textUpdater = dynamic(this['text'], (val) => Δtext.html(val));
+      _delta_text = _delta_el.append('text').attr('class', 'cmx-text');
+      const textUpdater = dynamic(this['text'], (val) => _delta_text.html(val));
       dynamic(this['stroke-width'], function (val) {
         if (val) {
-          return Δtext.style('stroke-width', val);
+          return _delta_text.style('stroke-width', val);
         }
       });
       dynamic(this['bgcolor'], function (val) {
         if (val) {
-          return Δtext.style('stroke', val);
+          return _delta_text.style('stroke', val);
         }
       });
 
       if (this['border']) {
         textUpdater(); // this is needed for getBBox call
-        const bbox = Δtext.node().getBBox();
+        const bbox = _delta_text.node().getBBox();
         const ex = this['border-extrude-x'] || 8;
         const ey = this['border-extrude-y'] || 3;
         const polyline = {
@@ -109,17 +109,17 @@ var render = function (Δroot, back, Δbefore) {
           bgcolor: this['border-bgcolor'],
           closed: true
         };
-        render.call(polyline, Δel);
+        render.call(polyline, _delta_el);
         this.updaters.push(() =>
           Array.from(polyline.updaters).map((updater) => updater())
         );
       }
     } else {
       // front
-      Δtext = Δel.append('text').attr('class', 'cmx-text');
-      dynamic(this['text'], (val) => Δtext.html(val));
+      _delta_text = _delta_el.append('text').attr('class', 'cmx-text');
+      dynamic(this['text'], (val) => _delta_text.html(val));
     }
-    return Δroot;
+    return _delta_root;
   }
 
   // render polyline
@@ -128,7 +128,7 @@ var render = function (Δroot, back, Δbefore) {
   const line = this['line'] || d3.svg.line();
   const magnitude = this['magnitude'] || 0.003;
 
-  const xkcd = new XKCD();
+  const xkcd = new Xkcd();
 
   const xkcdInterpolator = (pts) => {
     let res = xkcd.render(pts, xl, yl, magnitude);
@@ -145,43 +145,43 @@ var render = function (Δroot, back, Δbefore) {
     return result.join('L');
   };
 
-  const Δpath = Δel.append('path').attr('class', 'cmx-path');
+  const _delta_path = _delta_el.append('path').attr('class', 'cmx-path');
   dynamic(this['fill'], function (val) {
     if (val) {
-      return Δpath.style('fill', val);
+      return _delta_path.style('fill', val);
     }
   });
   if (back) {
     dynamic(this['back-stroke-width'], function (val) {
       if (val) {
-        return Δpath.style('stroke-width', val);
+        return _delta_path.style('stroke-width', val);
       }
     });
     dynamic(this['back-stroke'], function (val) {
       if (val) {
-        return Δpath.style('stroke', val);
+        return _delta_path.style('stroke', val);
       }
     });
     dynamic(this['points'], (val) =>
-      Δpath.attr('d', line.interpolate(backInterpolator)(val))
+      _delta_path.attr('d', line.interpolate(backInterpolator)(val))
     );
   } else {
     dynamic(this['stroke-width'], function (val) {
       if (val) {
-        return Δpath.style('stroke-width', val);
+        return _delta_path.style('stroke-width', val);
       }
     });
     dynamic(this['stroke'], function (val) {
       if (val) {
-        return Δpath.style('stroke', val);
+        return _delta_path.style('stroke', val);
       }
     });
     dynamic(this['points'], (val) =>
-      Δpath.attr('d', line.interpolate(xkcdInterpolator)(val))
+      _delta_path.attr('d', line.interpolate(xkcdInterpolator)(val))
     );
   }
 
-  return Δroot;
+  return _delta_root;
 };
 
 export default class Renderer {
@@ -200,9 +200,9 @@ export default class Renderer {
     const fullWidth = this.width + 2 * this.marginX;
     const fullHeight = this.height + 2 * this.marginY;
 
-    this.Δsvg = d3.select(root).append('svg').attr('class', 'cmx-canvas');
-    this.Δsvg.attr('width', fullWidth).attr('height', fullHeight); // svg canvas
-    this.Δel = this.Δsvg
+    this._delta_svg = d3.select(root).append('svg').attr('class', 'cmx-canvas');
+    this._delta_svg.attr('width', fullWidth).attr('height', fullHeight); // svg canvas
+    this._delta_el = this._delta_svg
       .append('g')
       .attr(
         'transform',
@@ -210,25 +210,25 @@ export default class Renderer {
       ) // implement margin
       .append('g')
       .attr('transform', 'translate(0, ' + this.height + ') scale(1, -1)'); // flip y
-    this.Δlayers = this.Δel.append('g').attr('class', 'cmx-layers');
+    this._delta_layers = this._delta_el.append('g').attr('class', 'cmx-layers');
   }
 
-  draw(Δelement) {
+  draw(_delta_element) {
     let item;
-    if (!Δelement) {
-      Δelement = this.Δlayers.append('g').attr('class', 'static');
+    if (!_delta_element) {
+      _delta_element = this._delta_layers.append('g').attr('class', 'static');
     }
 
     // draw background line
-    let Δ = Δelement.append('g').attr('class', 'cmx-back');
+    let _delta_ = _delta_element.append('g').attr('class', 'cmx-back');
     for (item of Array.from(this.calls)) {
-      Δ = render.call(item, Δ, true);
+      _delta_ = render.call(item, _delta_, true);
     }
 
     // draw foreground line
-    Δ = Δelement.append('g').attr('class', 'cmx-front');
+    _delta_ = _delta_element.append('g').attr('class', 'cmx-front');
     for (item of Array.from(this.calls)) {
-      Δ = render.call(item, Δ, false);
+      _delta_ = render.call(item, _delta_, false);
     }
 
     // collect all updaters and wrap them into one updater() function
@@ -249,7 +249,7 @@ export default class Renderer {
     // empty the queue
     this.calls = [];
 
-    return Δelement;
+    return _delta_element;
   }
 
   pushCall(type, opts) {

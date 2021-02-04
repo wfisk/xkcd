@@ -10,8 +10,6 @@ import Drawable from './Drawable';
 import EntityGizmo from './gizmos/EntityGizmo';
 import Skelet from './Skelet';
 
-let Entity;
-
 export default class Entity extends Drawable {
   constructor(scene) {
     super(scene);

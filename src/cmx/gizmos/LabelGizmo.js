@@ -10,8 +10,8 @@ export default class LabelGizmo extends EntityGizmo {
   update() {
     super.update(...arguments);
 
-    return this.ΔskeletonGizmo != null
-      ? this.ΔskeletonGizmo
+    return this._delta_skeletonGizmo != null
+      ? this._delta_skeletonGizmo
           .selectAll('.cmx-control')
           .attr('cx', (bone) => bone.x)
           .attr('cy', (bone) => bone.y)
@@ -22,7 +22,9 @@ export default class LabelGizmo extends EntityGizmo {
   build() {
     const base = super.build(...arguments);
 
-    this.ΔskeletonGizmo = base.append('g').attr('class', 'cmx-gizmo cmx-label');
+    this._delta_skeletonGizmo = base
+      .append('g')
+      .attr('class', 'cmx-gizmo cmx-label');
 
     const resetBone = (bone) => {
       this.entity.skelet.moveBone(bone.name, 0, 0, true);
@@ -55,7 +57,7 @@ export default class LabelGizmo extends EntityGizmo {
       });
 
     const data = this.entity.skelet.bonesWithIndices(this.entity.labelBones);
-    this.ΔskeletonGizmo
+    this._delta_skeletonGizmo
       .selectAll('.cmx-control')
       .data(data)
       .enter()
@@ -65,6 +67,6 @@ export default class LabelGizmo extends EntityGizmo {
       .on('dblclick', doubleClick)
       .call(drag);
 
-    return this.ΔskeletonGizmo;
+    return this._delta_skeletonGizmo;
   }
 }

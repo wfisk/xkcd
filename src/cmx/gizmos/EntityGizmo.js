@@ -1,3 +1,5 @@
+import Gizmo from '../Gizmo';
+
 const MARKER_POS = 0;
 const MARKER_ROT = 1;
 const MARKER_SX = 2;
@@ -63,8 +65,8 @@ export default class EntityGizmo extends Gizmo {
   }
 
   update() {
-    if (this.ΔentityGizmo != null) {
-      this.ΔentityGizmo
+    if (this._delta_entityGizmo != null) {
+      this._delta_entityGizmo
         .attr('transform', this.entity.getEffectiveFrame())
         .selectAll('.cmx-marker')
         .attr('transform', (marker) => {
@@ -78,7 +80,9 @@ export default class EntityGizmo extends Gizmo {
   build(root) {
     const base = super.build(...arguments);
 
-    this.ΔentityGizmo = base.append('g').attr('class', 'cmx-gizmo cmx-entity');
+    this._delta_entityGizmo = base
+      .append('g')
+      .attr('class', 'cmx-gizmo cmx-entity');
 
     const doubleClick = (marker) => {
       d3.event.preventDefault();
@@ -141,18 +145,18 @@ export default class EntityGizmo extends Gizmo {
       });
 
     const renderMarker = function (marker) {
-      const Δ = d3.select(this);
+      const _delta_ = d3.select(this);
 
-      const appendRect = (Δ, x, y, w, h) =>
-        Δ
+      const appendRect = (_delta_, x, y, w, h) =>
+        _delta_
           .append('rect')
           .attr('x', x)
           .attr('y', y)
           .attr('width', w)
           .attr('height', h);
 
-      const appendLine = (Δ, x1, y1, x2, y2) =>
-        Δ
+      const appendLine = (_delta_, x1, y1, x2, y2) =>
+        _delta_
           .append('line')
           .attr('x1', x1)
           .attr('y1', y1)
@@ -160,29 +164,29 @@ export default class EntityGizmo extends Gizmo {
           .attr('y2', y2);
 
       if (marker.kind !== 'rot') {
-        appendRect(Δ, -5, -5, 10, 10);
+        appendRect(_delta_, -5, -5, 10, 10);
       }
 
       switch (marker.kind) {
         case 'pos': // draw cross
-          appendLine(Δ, -5, 0, 5, 0);
-          return appendLine(Δ, 0, -5, 0, 5);
+          appendLine(_delta_, -5, 0, 5, 0);
+          return appendLine(_delta_, 0, -5, 0, 5);
         case 'rot': // draw arc with double arrows
-          appendRect(Δ, -10, -10, 15, 15);
-          return Δ
+          appendRect(_delta_, -10, -10, 15, 15);
+          return _delta_
             .append('path')
             .attr('transform', 'translate(-8, -8)')
             .attr('d', 'M0,10 A10 10,0,0,0,10 0');
         case 'sx': // draw line with arrow
-          return appendLine(Δ, -5, 0, 5, 0);
+          return appendLine(_delta_, -5, 0, 5, 0);
         case 'sy': // draw line with arrow
-          return appendLine(Δ, 0, -5, 0, 5);
+          return appendLine(_delta_, 0, -5, 0, 5);
         case 'sq': // draw line with double arrows
-          return appendLine(Δ, -5, 0, 5, 0);
+          return appendLine(_delta_, -5, 0, 5, 0);
       }
     };
 
-    const selection = this.ΔentityGizmo
+    const selection = this._delta_entityGizmo
       .selectAll('.cmx-marker')
       .data(this.entityMarkers)
       .enter()
@@ -192,6 +196,6 @@ export default class EntityGizmo extends Gizmo {
       .call(drag);
     selection.each(renderMarker);
 
-    return this.ΔentityGizmo;
+    return this._delta_entityGizmo;
   }
 }

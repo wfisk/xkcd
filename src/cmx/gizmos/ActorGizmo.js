@@ -4,14 +4,14 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import EntityGizmo from '/EntityGizmo';
+import EntityGizmo from './EntityGizmo';
 
 export default class ActorGizmo extends EntityGizmo {
   update() {
     super.update(...arguments);
 
-    return this.ΔskeletonGizmo != null
-      ? this.ΔskeletonGizmo
+    return this._delta_skeletonGizmo != null
+      ? this._delta_skeletonGizmo
           .selectAll('.cmx-control')
           .attr('cx', (bone) => bone.x)
           .attr('cy', (bone) => bone.y)
@@ -22,7 +22,9 @@ export default class ActorGizmo extends EntityGizmo {
   build() {
     const base = super.build(...arguments);
 
-    this.ΔskeletonGizmo = base.append('g').attr('class', 'cmx-gizmo cmx-actor');
+    this._delta_skeletonGizmo = base
+      .append('g')
+      .attr('class', 'cmx-gizmo cmx-actor');
 
     const alignBone = (bone) => {
       let ud;
@@ -76,7 +78,7 @@ export default class ActorGizmo extends EntityGizmo {
       });
 
     const data = this.entity.skelet.bonesWithIndices(this.entity.actorBones);
-    this.ΔskeletonGizmo
+    this._delta_skeletonGizmo
       .selectAll('.cmx-control')
       .data(data)
       .enter()
@@ -86,6 +88,6 @@ export default class ActorGizmo extends EntityGizmo {
       .on('dblclick', doubleClick)
       .call(drag);
 
-    return this.ΔskeletonGizmo;
+    return this._delta_skeletonGizmo;
   }
 }

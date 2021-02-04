@@ -8,7 +8,6 @@
 import Drawable from './Drawable';
 
 // cached values between controlUndoOpen - controlUndoClose
-let Gizmo;
 let initialUndoValue = undefined;
 let undoEval = undefined;
 
@@ -23,13 +22,15 @@ export default class Gizmo extends Drawable {
   }
 
   build(root) {
-    return (this.ΔrootGizmo = root.append('g').attr('class', 'cmx-gizmo root'));
+    return (this._delta_rootGizmo = root
+      .append('g')
+      .attr('class', 'cmx-gizmo root'));
   }
 
   controlDragStart(bone) {
     $(this.scene.rootElement).addClass('cmx-something-is-being-dragged');
     this.entity.highlightBones(
-      this.ΔskeletonGizmo,
+      this._delta_skeletonGizmo,
       this.entity.skelet.affectedBones(bone.name)
     );
     return $('html').addClass('cmx-force-move-cursor');
@@ -37,7 +38,7 @@ export default class Gizmo extends Drawable {
 
   controlDragEnd(bone) {
     $(this.scene.rootElement).removeClass('cmx-something-is-being-dragged');
-    this.entity.unhighlightBones(this.ΔskeletonGizmo);
+    this.entity.unhighlightBones(this._delta_skeletonGizmo);
     return $('html').removeClass('cmx-force-move-cursor');
   }
 
@@ -73,16 +74,18 @@ export default class Gizmo extends Drawable {
   }
 
   unselect() {
-    this.ΔentityGizmo.classed('cmx-selected', false);
-    return this.ΔentityGizmo
+    this._delta_entityGizmo.classed('cmx-selected', false);
+    return this._delta_entityGizmo
       .select('.cmx-force-unselected')
       .classed('cmx-force-unselected', false);
   }
 
   select() {
     this.scene.cmx.unselectAll();
-    this.ΔentityGizmo.classed('cmx-selected', true);
-    this.ΔentityGizmo.select('.root').classed('cmx-force-unselected', true);
+    this._delta_entityGizmo.classed('cmx-selected', true);
+    this._delta_entityGizmo
+      .select('.root')
+      .classed('cmx-force-unselected', true);
     $(this.scene.rootElement).addClass('cmx-has-selected-gizmo');
     $('html').addClass('cmx-active-selection');
     return (this.scene.cmx.previousSelection = this);

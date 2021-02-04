@@ -58,7 +58,7 @@ export default class Scene extends Drawable {
   }
 
   drawScene() {
-    this.renderer.Δlayers.selectAll('g').remove();
+    this.renderer._delta_layers.selectAll('g').remove();
     const layers = [
       // from top to bottom
       d3
@@ -79,29 +79,33 @@ export default class Scene extends Drawable {
         asc ? layerId <= 0 : layerId >= 0;
         asc ? layerId++ : layerId--
       ) {
-        var Δlayer;
+        var _delta_layer;
         if (layerId === 0 && this.frame) {
-          const Δg = d3.select(document.createElementNS(d3.ns.prefix.svg, 'g'));
-          Δg.attr('class', 'cmx-layer cmx-layer-frame');
-          Δlayer = Δg.append('g');
-          Δlayer.attr('class', 'cmx-pseudo-entity cmx-frame');
-          this.renderer.Δlayers.node().appendChild(Δlayer.node().parentNode);
-          this.drawFrame(Δlayer);
+          const _delta_g = d3.select(
+            document.createElementNS(d3.ns.prefix.svg, 'g')
+          );
+          _delta_g.attr('class', 'cmx-layer cmx-layer-frame');
+          _delta_layer = _delta_g.append('g');
+          _delta_layer.attr('class', 'cmx-pseudo-entity cmx-frame');
+          this.renderer._delta_layers
+            .node()
+            .appendChild(_delta_layer.node().parentNode);
+          this.drawFrame(_delta_layer);
         }
 
-        Δlayer = layers[layerId];
-        this.renderer.Δlayers.node().appendChild(Δlayer.node());
+        _delta_layer = layers[layerId];
+        this.renderer._delta_layers.node().appendChild(_delta_layer.node());
 
         result.push(
           (() => {
             const result1 = [];
             for (let view of Array.from(this.subviews)) {
-              const Δentity = d3
+              const _delta_entity = d3
                 .select(document.createElementNS(d3.ns.prefix.svg, 'g'))
                 .attr('class', 'cmx-entity-tree');
-              Δlayer.node().appendChild(Δentity.node());
+              _delta_layer.node().appendChild(_delta_entity.node());
               view.draw(layerId);
-              result1.push(this.renderer.draw(Δentity));
+              result1.push(this.renderer.draw(_delta_entity));
             }
             return result1;
           })()
@@ -124,9 +128,9 @@ export default class Scene extends Drawable {
       this.marginY
     );
 
-    super.buildGizmos(this.overlay.Δgizmos);
+    super.buildGizmos(this.overlay._delta_gizmos);
 
-    return this.renderer.Δlayers
+    return this.renderer._delta_layers
       .selectAll('.cmx-entity')
       .on('click', function (event) {
         const gizmo = __guard__(
@@ -140,7 +144,7 @@ export default class Scene extends Drawable {
       });
   }
 
-  drawFrame(Δwhere) {
+  drawFrame(_delta_where) {
     const thickness = 0;
 
     const frame = [
@@ -151,7 +155,7 @@ export default class Scene extends Drawable {
       [thickness, thickness]
     ];
     this.renderer.line(frame);
-    return this.renderer.draw(Δwhere);
+    return this.renderer.draw(_delta_where);
   }
 }
 

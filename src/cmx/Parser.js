@@ -1,20 +1,15 @@
-/*
- * decaffeinate suggestions:
- * DS101: Remove unnecessary use of Array.from
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-import SceneModel from './models/SceneModel';
 import ActorModel from './models/ActorModel';
 import BubbleModel from './models/BubbleModel';
 import DrawingModel from './models/DrawingModel';
 import LabelModel from './models/LabelModel';
+import SceneModel from './models/SceneModel';
 
 const defaultModels = {};
-for (let klass of Array.from(modelClasses)) {
-  defaultModels[klass.name] = klass;
-}
+defaultModels['ActorModel'] = ActorModel;
+defaultModels['BubbleModel'] = BubbleModel;
+defaultModels['DrawingModel'] = DrawingModel;
+defaultModels['LabelModel'] = LabelModel;
+defaultModels['SceneModel'] = SceneModel;
 
 export default class Parser {
   constructor(cmx, models) {

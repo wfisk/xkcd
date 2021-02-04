@@ -21,17 +21,17 @@ export default class Overlay {
     const fullWidth = this.width + 2 * this.marginX;
     const fullHeight = this.height + 2 * this.marginY;
 
-    this.Δsvg = d3
+    this._delta_svg = d3
       .select(root)
       .append('svg')
       .attr('class', 'cmx-overlay')
       .style('left', -this.extensionX)
       .style('top', -this.extensionY);
-    this.Δsvg
+    this._delta_svg
       .attr('width', fullWidth + 2 * this.extensionX)
       .attr('height', fullHeight + 2 * this.extensionY); // svg canvas
-    this.Δdefs = this.Δsvg.append('svg:defs');
-    this.Δel = this.Δsvg
+    this._delta_defs = this._delta_svg.append('svg:defs');
+    this._delta_el = this._delta_svg
       .append('g')
       .attr(
         'transform',
@@ -43,13 +43,13 @@ export default class Overlay {
       ) // implement margin
       .append('g')
       .attr('transform', 'translate(0, ' + this.height + ') scale(1, -1)'); // flip y
-    this.Δgizmos = this.Δel.append('g').attr('class', 'cmx-gizmos');
+    this._delta_gizmos = this._delta_el.append('g').attr('class', 'cmx-gizmos');
 
     this.renderArrowDefs();
   }
 
   renderArrowDefs() {
-    this.Δdefs
+    this._delta_defs
       .append('svg:marker')
       .attr('id', 'cmx-end-marker-arrow')
       .attr('class', 'cmx-marker-arrow')
@@ -63,7 +63,7 @@ export default class Overlay {
       .append('svg:path')
       .attr('d', 'M 0 0 L 10 5 L 0 10 z');
 
-    return this.Δdefs
+    return this._delta_defs
       .append('svg:marker')
       .attr('id', 'cmx-start-marker-arrow')
       .attr('class', 'cmx-marker-arrow')
