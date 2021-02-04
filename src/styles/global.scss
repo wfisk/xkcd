@@ -1,26 +1,31 @@
-@charset "utf-8";
-@import './custom_bootstrap.scss';
+// Bootstrap Functions
+@import 'node_modules/bootstrap/scss/functions';
 
-/* @import 'src/styles/fonts.scss'; */
-/*  @import './src/styles/typography.scss'; */
+// Custom Variables
+@import 'custom_variables';
 
-// your global styles
+// Bootstrap Variables
+@import 'node_modules/bootstrap/scss/variables.scss';
 
-body {
-  padding: 0;
-}
+// Custom Utilities
+@import 'custom_utilities';
 
-p.foo {
-  color: red;
-  display: flex;
-}
+// Custom Bootstrap
+@import 'custom_bootstrap';
 
-.navbar {
-  margin: 0 -15px;
-}
+// Custom Font Awesome
+// see https://stackoverflow.com/questions/59114993/how-to-use-font-awesome-5-icons-in-laravel-6
+// @import 'node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+// @import 'node_modules/@fortawesome/fontawesome-free/scss/regular';
+// @import 'node_modules/@fortawesome/fontawesome-free/scss/solid';
+// @import 'node_modules/@fortawesome/fontawesome-free/scss/brands';
 
-:root {
-  @each $color, $value in $custom-colors {
-    --#{$color}: #{$value};
-  }
-}
+// Fonts
+@import 'fonts';
+
+// Styles
+@import 'styles';
+
+// Cmx
+@import 'cmx';
+@import 'cmx-overlay';

@@ -1,12 +1,3 @@
-/*
- * decaffeinate suggestions:
- * DS002: Fix invalid constructor
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-
-let EntityGizmo;
 const MARKER_POS = 0;
 const MARKER_ROT = 1;
 const MARKER_SX = 2;

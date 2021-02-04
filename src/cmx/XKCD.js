@@ -4,10 +4,7 @@
  * DS205: Consider reworking code to avoid use of IIFEs
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function() {
-
-  let XKCD;
-  return XKCD = class XKCD {
+export default XKCD {
 
     // taken from: http://dan.iel.fm/xkcd
     // XKCD-style line interpolation. Roughly based on:
@@ -107,5 +104,4 @@ define(function() {
 
       return result.join("L");
     }
-  };
-});
+  }
