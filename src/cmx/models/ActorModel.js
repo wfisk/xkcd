@@ -2,14 +2,12 @@ import Model from '../Model';
 import Actor from '../entities/Actor';
 
 export default class ActorModel extends Model {
-  constructor() {
-    this.defaults = {
+  constructor(cmx) {
+    super(cmx, {
       t: '',
       pose:
         '0,0|0,106|0,90|0,80|0,70|0,50|-10,30|-10,0|10,30|10,0|-10,70|-10,50|10,70|10,50'
-    };
-
-    super(...arguments);
+    });
   }
 
   materialize(parent) {

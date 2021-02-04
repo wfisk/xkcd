@@ -1,5 +1,16 @@
 <script>
-  import cmx from '/src/cmx/cmx';
+  import '/src/cmx/cmx';
+  // import { d3ext } from '/src/cmx/edit_scripts/d3ext';
+  import {
+    launch,
+    loadWebFonts,
+    publishEvent
+  } from '/src/cmx/edit_scripts/main';
+
+  publishEvent('cmx:loaded');
+  // underscore.string = underscore.str = underscoreString;
+  // d3ext();
+  loadWebFonts(launch);
 </script>
 
 <scene id="scene1">

@@ -4,9 +4,12 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 export default class View {
-  constructor(scene) {
-    this.scene = scene;
+  constructor() {
     this.subviews = [];
+  }
+
+  setScene(scene) {
+    this.scene = scene;
   }
 
   add(view) {

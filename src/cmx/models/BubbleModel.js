@@ -8,14 +8,13 @@ import Model from '../Model';
 import Bubble from '../entities/Bubble';
 
 export default class BubbleModel extends Model {
-  constructor() {
-    this.defaults = {
+  constructor(cmx) {
+    super(cmx, {
       t: '',
       pose: '0,0|-20,10|-40,50|0,50|-20,90|-60,85',
       content: '<tspan x="0" y="0em">hello world</tspan>',
       attach: 'head'
-    };
-    super(...arguments);
+    });
   }
 
   materialize(parent) {

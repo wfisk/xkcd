@@ -1,12 +1,7 @@
-/*
- * decaffeinate suggestions:
- * DS101: Remove unnecessary use of Array.from
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-import Gizmo from './Gizmo';
+import { select as d3Select } from 'd3-selection';
 
+import Gizmo from './Gizmo';
+import { d3Parents } from './edit_scripts/d3ext';
 let instanceNumber = 0;
 
 export default class Controller {
@@ -24,11 +19,18 @@ export default class Controller {
     for (let sceneModel of Array.from(this.scenes)) {
       const scene = sceneModel.view;
       scene.buildGizmos();
-      $(scene.rootElement).addClass('cmx-editable');
+
+      // $(scene.rootElement).addClass('cmx-editable');
+      const el = document.querySelector(scene.rootElement);
+      el.classList.add('cmx-editable');
     }
 
-    return $('html').bind('click', (event) => {
-      if (d3.select(event.target).parents('cmx-selected').length > 0) {
+    // $('html').bind('click', (event) => {
+    document.addEventListener('click', (event) => {
+      const parents = d3Parents(d3Select(event.target), 'cmx-selected');
+
+      // if (d3.select(event.target).parents('cmx-selected').length > 0) {
+      if (parents.length > 0) {
         return;
       }
       return this.unselectAll();
@@ -41,8 +43,14 @@ export default class Controller {
     }
     this.previousSelection.unselect();
     this.previousSelection = undefined;
-    $('.cmx-has-selected-gizmo').removeClass('cmx-has-selected-gizmo');
-    return $('html').removeClass('cmx-active-selection');
+
+    // $('.cmx-has-selected-gizmo').removeClass('cmx-has-selected-gizmo');
+    document
+      .querySelectorAdd('.cmx-has-selected-gizmo')
+      .forEach((it) => it.classList.remove('cmx-has-selected-gizmo'));
+
+    // return $('html').removeClass('cmx-active-selection');
+    return document.body.classList.remove('cmx-active-selection');
   }
 
   registerUndo(fn) {

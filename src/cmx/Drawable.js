@@ -3,9 +3,9 @@ import _ from 'lodash-es';
 export default class Drawable extends View {
   static throttledUpdate = _.throttle(this.prototype.update, 50);
 
-  constructor(scene) {
+  constructor() {
+    super();
     this.renderCalls = [];
-    super(scene);
   }
 
   register(renderCall) {

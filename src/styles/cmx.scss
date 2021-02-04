@@ -2,6 +2,7 @@ scene {
   display: none;
 }
 
+/*
 @font-face {
   font-family: 'xkcd';
   src: url('/fonts/xkcd.eot');
@@ -11,11 +12,12 @@ scene {
   font-weight: normal;
   font-style: normal;
 }
+*/
 
-.cmx-scene {
+@at-root .cmx-scene {
   float: left;
 
-  font-family: "xkcd", sans-serif;
+  font-family: 'xkcd', sans-serif;
   font-size: 14px;
   background-color: white;
   margin: 0px;

@@ -9,16 +9,14 @@ import Model from '../Model';
 import Scene from '../Scene';
 
 export default class SceneModel extends Model {
-  constructor() {
-    this.defaults = {
+  constructor(cmx) {
+    super(cmx, {
       width: [250, 'int'],
       height: [350, 'int'],
       frame: [true, 'bool'],
       'margin-x': [10, 'int'],
       'margin-y': [20, 'int']
-    };
-
-    super(...arguments);
+    });
   }
 
   applyDefaults(props) {
@@ -32,17 +30,24 @@ export default class SceneModel extends Model {
     return props;
   }
 
-  materialize($where) {
-    const $wrapper = $('<div/>').attr('class', 'cmx-scene');
-    const id = $(this.source).attr('id');
+  materialize(where) {
+    // const $wrapper = $('<div/>').attr('class', 'cmx-scene');
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('cmx-scene');
+
+    // const id = $(this.source).attr('id');
+    const id = this.source.getAttribute('id');
+
     if (id) {
-      $wrapper.addClass(`cmx-user-${id}`);
+      // $wrapper.addClass(`cmx-user-${id}`);
+      wrapper.classList.add(`cmx-user-${id}`);
     }
-    $where.after($wrapper);
+    // $where.after($wrapper);
+    where.insertAdjacentElement('afterend', wrapper);
 
     const scene = new Scene(
       this.cmx,
-      $wrapper.get(0),
+      wrapper,
       this.props['width'],
       this.props['height'],
       this.props['frame'],

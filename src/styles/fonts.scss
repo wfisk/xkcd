@@ -1,4 +1,13 @@
 @font-face {
+  font-family: 'xkcd';
+  src: url('fonts/xkcd/build/xkcd.otf') format('opentype');
+
+  font-weight: 400;
+  font-style: normal;
+  font-variant: normal;
+}
+
+@font-face {
   font-family: 'Roboto';
   src: url('fonts/Roboto/Roboto-Light.ttf') format('truetype');
 

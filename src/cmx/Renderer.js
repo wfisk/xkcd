@@ -1,10 +1,5 @@
-/*
- * decaffeinate suggestions:
- * DS101: Remove unnecessary use of Array.from
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
+import { select as d3Select } from 'd3-selection';
+import { line as d3Line } from 'd3-shape';
 
 import Xkcd from './Xkcd';
 
@@ -46,7 +41,7 @@ var render = function (_delta_root, back, _delta_before) {
   };
 
   if (this.type === 'close group') {
-    return d3.select(_delta_root.node().parentNode);
+    return d3Select(_delta_root.node().parentNode);
   }
 
   let _delta_el = _delta_root;
@@ -125,7 +120,7 @@ var render = function (_delta_root, back, _delta_before) {
   // render polyline
   const xl = this['xl'] || [0, 200];
   const yl = this['yl'] || [0, 200];
-  const line = this['line'] || d3.svg.line();
+  const line = this['line'] || d3Line();
   const magnitude = this['magnitude'] || 0.003;
 
   const xkcd = new Xkcd();
@@ -200,7 +195,7 @@ export default class Renderer {
     const fullWidth = this.width + 2 * this.marginX;
     const fullHeight = this.height + 2 * this.marginY;
 
-    this._delta_svg = d3.select(root).append('svg').attr('class', 'cmx-canvas');
+    this._delta_svg = d3Select(root).append('svg').attr('class', 'cmx-canvas');
     this._delta_svg.attr('width', fullWidth).attr('height', fullHeight); // svg canvas
     this._delta_el = this._delta_svg
       .append('g')
@@ -301,7 +296,7 @@ export default class Renderer {
       .linear()
       .domain([0, N - 1])
       .range([0, R]);
-    const l = d3.svg.line
+    const l = d3Line
       .radial()
       .interpolate('basis')
       .tension(0)
@@ -320,7 +315,7 @@ export default class Renderer {
         'http://www.w3.org/2000/svg',
         'path'
       );
-      d3.select(path).attr('d', spec);
+      d3Select(path).attr('d', spec);
 
       // sample the path
       const len = path.getTotalLength();

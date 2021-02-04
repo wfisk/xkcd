@@ -10,12 +10,14 @@ import Entity from '../Entity';
 import DrawingGizmo from '../gizmos/DrawingGizmo';
 export default class Drawing extends Entity {
   constructor(scene, drawlist) {
+    super();
+    this.setScene(scene);
+
     // HACK: find proper way how to do deep clone
     if (drawlist == null) {
       drawlist = [];
     }
     this.drawlist = drawlist.map((call) => call.map((x) => _(x).clone()));
-    super(scene);
 
     this.drawingBones = this.skelet.addBones([
       ['HNDL', 0, 0, 'h'] // handle

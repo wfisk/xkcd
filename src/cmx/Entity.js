@@ -1,10 +1,5 @@
-/*
- * decaffeinate suggestions:
- * DS101: Remove unnecessary use of Array.from
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
+import _ from 'lodash';
+import { select as d3Select } from 'd3';
 
 import Drawable from './Drawable';
 import EntityGizmo from './gizmos/EntityGizmo';
@@ -12,7 +7,8 @@ import Skelet from './Skelet';
 
 export default class Entity extends Drawable {
   constructor(scene) {
-    super(scene);
+    super();
+    this.setScene(scene);
 
     this.skelet = new Skelet();
   }
@@ -24,7 +20,7 @@ export default class Entity extends Drawable {
   getFrame() {
     // strip defaults and make the transformation human-readable
     const re = /\)([^ ])/;
-    return _.str.trim(
+    return _.trim(
       this.t
         .replace('translate(0,0)', '')
         .replace('rotate(0)', '')
@@ -85,7 +81,7 @@ export default class Entity extends Drawable {
     }
     return root.selectAll('.cmx-control').each(function (d, bone) {
       if (Array.from(bones).includes(d.name)) {
-        return d3.select(this).classed('cmx-highlighted-bone', true);
+        return d3Select(this).classed('cmx-highlighted-bone', true);
       }
     });
   }
@@ -95,7 +91,7 @@ export default class Entity extends Drawable {
       return;
     }
     return root.selectAll('.cmx-highlighted-bone').each(function (d, bone) {
-      return d3.select(this).classed('cmx-highlighted-bone', false);
+      return d3Select(this).classed('cmx-highlighted-bone', false);
     });
   }
 }

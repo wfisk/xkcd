@@ -16,7 +16,8 @@ export default class Gizmo extends Drawable {
 
   constructor(entity, root) {
     this.entity = entity;
-    super(this.entity.scene);
+    super();
+    this.setScene(this.entity.scene);
     this.entity.gizmo = this;
     this.leafGizmo = this.build(root);
   }
@@ -43,8 +44,8 @@ export default class Gizmo extends Drawable {
   }
 
   controlUndoOpen(what, ...params) {
-    const getter = 'get' + _.str.classify(what);
-    const setter = 'set' + _.str.classify(what);
+    const getter = 'get' + _.upperFirst(_.camelCase(what));
+    const setter = 'set' + _.upperFirst(_.camelCase(what));
 
     undoEval = (val) => {
       if (val) {

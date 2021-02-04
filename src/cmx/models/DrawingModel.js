@@ -12,14 +12,12 @@ import Drawing from '../entities/Drawing';
 const DEFAULT_LAYER = 2;
 
 export default class DrawingModel extends Model {
-  constructor() {
-    this.defaults = {
+  constructor(cmx) {
+    super(cmx, {
       t: '',
       pose: '0,0',
       drawlist: [[], 'array']
-    };
-
-    super(...arguments);
+    });
   }
 
   applyDefaults(props) {

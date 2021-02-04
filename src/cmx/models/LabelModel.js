@@ -8,13 +8,12 @@ import Model from '../Model';
 import Label from '../entities/Label';
 
 export default class LabelModel extends Model {
-  constructor() {
-    this.defaults = {
+  constructor(cmx) {
+    super(cmx, {
       t: '',
       pose: '0,-10|0,0',
       content: '<tspan x="0" y="0em">hello world</tspan>'
-    };
-    super(...arguments);
+    });
   }
 
   materialize(parent) {

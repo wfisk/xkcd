@@ -1,15 +1,5 @@
-/*
- * decaffeinate suggestions:
- * DS002: Fix invalid constructor
- * DS101: Remove unnecessary use of Array.from
- * DS102: Remove unnecessary code created because of implicit returns
- * DS103: Rewrite code to no longer use __guard__, or convert again using --optional-chaining
- * DS202: Simplify dynamic range loops
- * DS205: Consider reworking code to avoid use of IIFEs
- * DS206: Consider reworking classes to avoid initClass
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
+import { namespace as d3Namespace, select as d3Select } from 'd3-selection';
+
 import Drawable from './Drawable';
 import Renderer from './Renderer';
 import Overlay from './Overlay';
@@ -24,6 +14,9 @@ export default class Scene extends Drawable {
   }
 
   constructor(cmx, rootElement, width, height, frame, marginX, marginY) {
+    super();
+    this.setScene(this);
+
     this.cmx = cmx;
     this.rootElement = rootElement;
     if (width == null) {
@@ -46,7 +39,7 @@ export default class Scene extends Drawable {
       marginY = 20;
     }
     this.marginY = marginY;
-    super(this);
+
     this.renderer = new Renderer(
       this.rootElement,
       this.width,
@@ -61,15 +54,18 @@ export default class Scene extends Drawable {
     this.renderer._delta_layers.selectAll('g').remove();
     const layers = [
       // from top to bottom
-      d3
-        .select(document.createElementNS(d3.ns.prefix.svg, 'g'))
-        .attr('class', 'cmx-layer cmx-layer-0'), // special non-zoomable layer, goes on top of frame
-      d3
-        .select(document.createElementNS(d3.ns.prefix.svg, 'g'))
-        .attr('class', 'cmx-layer cmx-layer-1'),
-      d3
-        .select(document.createElementNS(d3.ns.prefix.svg, 'g'))
-        .attr('class', 'cmx-layer cmx-layer-2')
+      d3Select(document.createElementNS(d3Namespace.prefix.svg, 'g')).attr(
+        'class',
+        'cmx-layer cmx-layer-0'
+      ), // special non-zoomable layer, goes on top of frame
+      d3Select(document.createElementNS(d3Namespace.prefix.svg, 'g')).attr(
+        'class',
+        'cmx-layer cmx-layer-1'
+      ),
+      d3Select(document.createElementNS(d3Namespace.prefix.svg, 'g')).attr(
+        'class',
+        'cmx-layer cmx-layer-2'
+      )
     ];
 
     return (() => {
@@ -81,8 +77,8 @@ export default class Scene extends Drawable {
       ) {
         var _delta_layer;
         if (layerId === 0 && this.frame) {
-          const _delta_g = d3.select(
-            document.createElementNS(d3.ns.prefix.svg, 'g')
+          const _delta_g = d3Select(
+            document.createElementNS(d3Namespace.prefix.svg, 'g')
           );
           _delta_g.attr('class', 'cmx-layer cmx-layer-frame');
           _delta_layer = _delta_g.append('g');
@@ -100,9 +96,9 @@ export default class Scene extends Drawable {
           (() => {
             const result1 = [];
             for (let view of Array.from(this.subviews)) {
-              const _delta_entity = d3
-                .select(document.createElementNS(d3.ns.prefix.svg, 'g'))
-                .attr('class', 'cmx-entity-tree');
+              const _delta_entity = d3Select(
+                document.createElementNS(d3Namespace.prefix.svg, 'g')
+              ).attr('class', 'cmx-entity-tree');
               _delta_layer.node().appendChild(_delta_entity.node());
               view.draw(layerId);
               result1.push(this.renderer.draw(_delta_entity));
@@ -139,7 +135,7 @@ export default class Scene extends Drawable {
         );
         if (gizmo) {
           gizmo.select();
-          return d3.event.stopPropagation();
+          return event.stopPropagation();
         }
       });
   }

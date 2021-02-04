@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import ActorModel from './models/ActorModel';
 import BubbleModel from './models/BubbleModel';
 import DrawingModel from './models/DrawingModel';
@@ -47,32 +49,35 @@ export default class Parser {
     return this.models[`${modelName}Model`];
   }
 
-  collectProps($el) {
+  collectProps(el) {
     const res = {};
 
     // special content attribute captures innerHTML
-    let content = $el.html();
+    let content = el.innerHtml;
     if (content) {
       res['content'] = content;
     }
 
     // attributes may be applied via CSS content property
-    content = _.str.trim($el.css('content'), " \t\n'");
+    // content = _.str.trim( $el.css('content'), " \t\n'");
+    content = _.trim(getComputedStyle(el)['content'], " \t\n'");
+
     if (content && content !== 'none') {
       // Firefox returns "none"
       if (content[0] !== '{') {
         content = `{${content}}`;
       }
       try {
-        const params = $.parseJSON(content); // TODO: use some non-strict parser for JSON-like data
-        $.extend(res, params);
+        const params = JSON.parse(content); // TODO: use some non-strict parser for JSON-like data
+        // $.extend(res, params);
+        Object.assign(res, params);
       } catch (e) {
-        console.error(e);
+        // console.error(e);
       }
     }
 
     // collect native attributes
-    for (let attr of Array.from($el.get(0).attributes)) {
+    for (let attr of Array.from(el.attributes)) {
       const key = attr.name.toLowerCase();
       const val = attr.value;
       res[key] = val;
@@ -81,11 +86,15 @@ export default class Parser {
     return res;
   }
 
-  parseElement($el) {
-    let model = $el.data('cmx-model');
+  parseElement(el) {
+    // let model = $el.data('cmx-model');
+    let model = el.dataset['cmx-model'];
 
     if (!model) {
-      const tag = _.str.classify($el.prop('tagName').toLowerCase());
+      // const tag = _.str.classify( $el.prop('tagName').toLowerCase());
+      // const tag = _.str.classify(el.tagName.toLowerCase());
+
+      const tag = _.upperFirst(_.camelCase(el.tagName.toLowerCase()));
 
       const modelClass = this.lookupModelClass(tag);
       if (!modelClass) {
@@ -94,24 +103,23 @@ export default class Parser {
       }
 
       model = new modelClass(this.cmx);
-      model.source = $el.get(0);
-      $el.data('cmx-model', model);
+      model.source = el;
+
+      // $el.data('cmx-model', model);
+      el.dataset[cmx - model] = model;
     }
 
-    const props = this.collectProps($el);
+    const props = this.collectProps(el);
     model.set(props);
     return model;
   }
 
   parseDoc(doc) {
-    const $doc = $(doc);
+    var walk = (el) => {
+      const model = this.parseElement(el);
 
-    var walk = ($el) => {
-      const model = this.parseElement($el);
-
-      for (let child of Array.from($el.children())) {
-        const $child = $(child);
-        const childModel = walk($child);
+      for (let child of Array.from(el.children)) {
+        const childModel = walk(child);
         if (!childModel) {
           continue;
         }
@@ -123,9 +131,11 @@ export default class Parser {
     };
 
     const res = [];
-    for (let scene of Array.from($doc.find('scene'))) {
-      const $scene = $(scene);
-      const sceneModel = walk($scene);
+
+    // for (let scene of Array.from($doc.find('scene'))) {
+    for (let scene of Array.from(doc.querySelectorAll('scene'))) {
+      // const $scene = $(scene);
+      const sceneModel = walk(scene);
       sceneModel.source = scene;
       res.push(sceneModel);
     }

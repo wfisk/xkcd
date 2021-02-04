@@ -1,3 +1,5 @@
+import { select as d3Select } from 'd3-selection';
+
 import Gizmo from '../Gizmo';
 
 const MARKER_POS = 0;
@@ -145,7 +147,7 @@ export default class EntityGizmo extends Gizmo {
       });
 
     const renderMarker = function (marker) {
-      const _delta_ = d3.select(this);
+      const _delta_ = d3Select(this);
 
       const appendRect = (_delta_, x, y, w, h) =>
         _delta_
