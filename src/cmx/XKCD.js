@@ -1,9 +1,6 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS205: Consider reworking code to avoid use of IIFEs
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
+import { interpolate as d3Interpolate } from 'd3-interpolate';
+import { randomNormal as d3RandomNormal } from 'd3-random';
+
 export default class Xkcd {
   // taken from: http://dan.iel.fm/xkcd
   // XKCD-style line interpolation. Roughly based on:
@@ -65,7 +62,7 @@ export default class Xkcd {
         return;
       }
       const n = Math.max(3, Math.round((d / dist) * N));
-      const spline = d3.interpolate(scaled[i - 1][1], scaled[i][1]);
+      const spline = d3Interpolate(scaled[i - 1][1], scaled[i][1]);
       const delta = (scaled[i][0] - scaled[i - 1][0]) / (n - 1);
       let j = 0;
       let x = scaled[i - 1][0];
@@ -102,7 +99,7 @@ export default class Xkcd {
     });
 
     // generate some perturbations
-    const perturbations = smooth(resampled.map(d3.random.normal()), 3);
+    const perturbations = smooth(resampled.map(d3RandomNormal()), 3);
 
     // add in the perturbations and re-scale the re-sampled curve
     const perturbed = resampled.map(function (d, i) {

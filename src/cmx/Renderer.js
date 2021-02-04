@@ -1,5 +1,12 @@
+import { range as d3Range } from 'd3-array';
+import { scaleLinear as d3ScaleLinear } from 'd3-scale';
 import { select as d3Select } from 'd3-selection';
-import { line as d3Line } from 'd3-shape';
+import {
+  curveBasis as d3CurveBasis,
+  line as d3Line,
+  lineRadial as d3LineRadial
+} from 'd3-shape';
+import _ from 'lodash';
 
 import Xkcd from './Xkcd';
 
@@ -292,17 +299,16 @@ export default class Renderer {
     }
     const N = opts['N'] || 20;
     const R = opts['radians'] || 2 * Math.PI;
-    const angle = d3.scale
-      .linear()
+    const angle = d3ScaleLinear()
       .domain([0, N - 1])
       .range([0, R]);
-    const l = d3Line
-      .radial()
-      .interpolate('basis')
-      .tension(0)
+    const l = d3LineRadial()
+      // .interpolate('basis')
+      .curve(d3CurveBasis)
+      // .tension(0)
       .radius(radius)
       .angle((d, i) => angle(i));
-    return this.path(l(d3.range(N)), opts);
+    return this.path(l(d3Range(N)), opts);
   }
 
   path(spec, opts) {

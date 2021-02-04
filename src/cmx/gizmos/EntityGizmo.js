@@ -39,12 +39,14 @@ export default class EntityGizmo extends Gizmo {
   }
 
   decomposeFrame(frame) {
-    const t = d3.transform(frame);
-    this.entityMarkers[MARKER_POS].val[0] = t.translate[0];
-    this.entityMarkers[MARKER_POS].val[1] = t.translate[1];
+    const t = getTransformation(frame);
+
+    this.entityMarkers[MARKER_POS].val[0] = t.translateX;
+    this.entityMarkers[MARKER_POS].val[1] = t.translateY;
     this.entityMarkers[MARKER_ROT].val = t.rotate;
-    this.entityMarkers[MARKER_SX].val = t.scale[0];
-    this.entityMarkers[MARKER_SY].val = t.scale[1];
+    this.entityMarkers[MARKER_SX].val = t.scaleX;
+    this.entityMarkers[MARKER_SY].val = t.scaleY;
+
     return (this.entityMarkers[MARKER_SQ].val = t.skew);
   }
 
@@ -56,14 +58,15 @@ export default class EntityGizmo extends Gizmo {
       return Math.round(v * p) / p;
     };
 
-    const t = d3.transform();
-    t.translate[0] = round(this.entityMarkers[MARKER_POS].val[0]);
-    t.translate[1] = round(this.entityMarkers[MARKER_POS].val[1]);
+    const t = getTransformation('');
+    t.translateX = round(this.entityMarkers[MARKER_POS].val[0]);
+    t.translateY = round(this.entityMarkers[MARKER_POS].val[1]);
     t.rotate = round(this.entityMarkers[MARKER_ROT].val);
-    t.scale[0] = round(this.entityMarkers[MARKER_SX].val, 100);
-    t.scale[1] = round(this.entityMarkers[MARKER_SY].val, 100);
+    t.scaleX = round(this.entityMarkers[MARKER_SX].val, 100);
+    t.scaleY = round(this.entityMarkers[MARKER_SY].val, 100);
     t.skew = round(this.entityMarkers[MARKER_SQ].val);
-    return t.toString();
+
+    return transformationToString(t);
   }
 
   update() {
@@ -199,5 +202,67 @@ export default class EntityGizmo extends Gizmo {
     selection.each(renderMarker);
 
     return this._delta_entityGizmo;
+  }
+
+  // see https://stackoverflow.com/questions/38224875/replacing-d3-transform-in-d3-v4
+  getTransformation(transform) {
+    // Create a dummy g for calculation purposes only. This will never
+    // be appended to the DOM and will be discarded once this function
+    // returns.
+    var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+    // Set the transform attribute to the provided string value.
+    g.setAttributeNS(null, 'transform', transform);
+
+    // consolidate the SVGTransformList containing all transformations
+    // to a single SVGTransform of type SVG_TRANSFORM_MATRIX and get
+    // its SVGMatrix.
+    var matrix = g.transform.baseVal.consolidate().matrix;
+
+    // Below calculations are taken and adapted from the private function
+    // transform/decompose.js of D3's module d3-interpolate.
+    var { a, b, c, d, e, f } = matrix; // ES6, if this doesn't work, use below assignment
+    // var a=matrix.a, b=matrix.b, c=matrix.c, d=matrix.d, e=matrix.e, f=matrix.f; // ES5
+    var scaleX, scaleY, skewX;
+    if ((scaleX = Math.sqrt(a * a + b * b))) (a /= scaleX), (b /= scaleX);
+    if ((skewX = a * c + b * d)) (c -= a * skewX), (d -= b * skewX);
+    if ((scaleY = Math.sqrt(c * c + d * d)))
+      (c /= scaleY), (d /= scaleY), (skewX /= scaleY);
+    if (a * d < b * c) (a = -a), (b = -b), (skewX = -skewX), (scaleX = -scaleX);
+    return {
+      translateX: e,
+      translateY: f,
+      rotate: (Math.atan2(b, a) * 180) / Math.PI,
+      skewX: (Math.atan(skewX) * 180) / Math.PI,
+      scaleX: scaleX,
+      scaleY: scaleY
+    };
+  }
+
+  transformationToString(t) {
+    result = '';
+
+    t.translateX = t.translateX ? t.translateX : 0;
+    t.translateY = t.translateY ? t.translateY : 0;
+    t.scaleX = t.scaleX ? t.scaleX : 0;
+    t.scaleY = t.scaleY ? t.scaleY : 0;
+
+    if (t.translateX || t.translateY) {
+      result = `${result} translate(${t.translateX},${t.translateY})`;
+    }
+
+    if (t.rotate) {
+      result = `${result} rotate(${t.rotate})`;
+    }
+
+    if (t.skewX) {
+      result = `${result} skewX(${t.skewX})`;
+    }
+
+    if (t.scaleX || t.scaleY) {
+      result = `${result} scale(${t.scaleX},${t.scaleY})`;
+    }
+
+    return result;
   }
 }

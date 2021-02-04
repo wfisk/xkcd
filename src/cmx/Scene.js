@@ -54,15 +54,15 @@ export default class Scene extends Drawable {
     this.renderer._delta_layers.selectAll('g').remove();
     const layers = [
       // from top to bottom
-      d3Select(document.createElementNS(d3Namespace.prefix.svg, 'g')).attr(
+      d3Select(document.createElementNS(d3Namespace('svg').space, 'g')).attr(
         'class',
         'cmx-layer cmx-layer-0'
       ), // special non-zoomable layer, goes on top of frame
-      d3Select(document.createElementNS(d3Namespace.prefix.svg, 'g')).attr(
+      d3Select(document.createElementNS(d3Namespace('svg').space, 'g')).attr(
         'class',
         'cmx-layer cmx-layer-1'
       ),
-      d3Select(document.createElementNS(d3Namespace.prefix.svg, 'g')).attr(
+      d3Select(document.createElementNS(d3Namespace('svg').space, 'g')).attr(
         'class',
         'cmx-layer cmx-layer-2'
       )
@@ -78,7 +78,7 @@ export default class Scene extends Drawable {
         var _delta_layer;
         if (layerId === 0 && this.frame) {
           const _delta_g = d3Select(
-            document.createElementNS(d3Namespace.prefix.svg, 'g')
+            document.createElementNS(d3Namespace('svg').space, 'g')
           );
           _delta_g.attr('class', 'cmx-layer cmx-layer-frame');
           _delta_layer = _delta_g.append('g');
@@ -97,7 +97,7 @@ export default class Scene extends Drawable {
             const result1 = [];
             for (let view of Array.from(this.subviews)) {
               const _delta_entity = d3Select(
-                document.createElementNS(d3Namespace.prefix.svg, 'g')
+                document.createElementNS(d3Namespace('svg').space, 'g')
               ).attr('class', 'cmx-entity-tree');
               _delta_layer.node().appendChild(_delta_entity.node());
               view.draw(layerId);
