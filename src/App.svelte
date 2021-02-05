@@ -15,7 +15,7 @@
 
 <scene id="scene1">
   <label t="translate(0,346)">
-    <tspan x="0" y="0em">One lazy morning</tspan>
+    <tspan x="0" y="0em">Two afternoon</tspan>
   </label>
   <drawing t="translate(0,31)">
     <line stroke="green">

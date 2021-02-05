@@ -20,6 +20,8 @@ export default class Parser {
       models = defaultModels;
     }
     this.models = models;
+
+    this.elementToCmxModel = new WeakMap();
   }
 
   createFrame() {
@@ -53,7 +55,7 @@ export default class Parser {
     const res = {};
 
     // special content attribute captures innerHTML
-    let content = el.innerHtml;
+    let content = el.innerHTML;
     if (content) {
       res['content'] = content;
     }
@@ -88,7 +90,8 @@ export default class Parser {
 
   parseElement(el) {
     // let model = $el.data('cmx-model');
-    let model = el.dataset['cmx-model'];
+    // let model = el.dataset['cmx-model'];
+    let model = this.elementToCmxModel.get(el);
 
     if (!model) {
       // const tag = _.str.classify( $el.prop('tagName').toLowerCase());
@@ -106,7 +109,8 @@ export default class Parser {
       model.source = el;
 
       // $el.data('cmx-model', model);
-      el.dataset[cmx - model] = model;
+      // el.dataset['cmx-model'] = model;
+      this.elementToCmxModel.set(el, model);
     }
 
     const props = this.collectProps(el);

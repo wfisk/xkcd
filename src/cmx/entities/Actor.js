@@ -73,8 +73,8 @@ export default class Actor extends Entity {
 
     // define some heads
     const standardHead = () => {
-      return this.scene.renderer.circle(this.HEAD_RADIUS, {
-        t: `translate(0, ${this.HEAD_RADIUS})`
+      return this.scene.renderer.circle(this.constructor.HEAD_RADIUS, {
+        t: `translate(0, ${this.constructor.HEAD_RADIUS})`
       });
     };
 

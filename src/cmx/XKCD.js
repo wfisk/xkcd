@@ -115,6 +115,7 @@ export default class Xkcd {
     const r = (num) => Math.round(num * 100) / 100;
     const result = perturbed.map((d) => [r(d[0]), r(d[1])]);
 
-    return result.join('L');
+    // return result.join('L');
+    return result;
   }
 }

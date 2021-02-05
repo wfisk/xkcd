@@ -26,13 +26,17 @@ export default class DrawingModel extends Model {
     // this is our mini-parser for drawing's content
     if (props['content']) {
       const list = [];
-      const $parser = $('<div/>').html(props['content']);
-      $parser.children().each(function () {
-        const $command = $(this);
+      // const $parser = $('<div/>').html(props['content']);
+      let parser = document.createElement('div');
+      parser.innerHTML = props['content'];
 
-        const collectOpts = function ($el) {
+      // $parser.children().each(function () {
+      for (let child of Array.from(parser.children)) {
+        // const $command = $(this);
+
+        const collectOpts = function (el) {
           const res = {};
-          for (let attr of Array.from($el.get(0).attributes)) {
+          for (let attr of Array.from(el.attributes)) {
             const key = attr.name.toLowerCase();
             const val = attr.value;
             res[key] = val;
@@ -41,27 +45,34 @@ export default class DrawingModel extends Model {
           return res;
         };
 
-        const layer = parseInt($command.attr('layer') || DEFAULT_LAYER, 10);
-        const action = $command.prop('tagName').toLowerCase();
+        const layer = parseInt(
+          child.getAttribute('layer') || DEFAULT_LAYER,
+          10
+        );
+        const action = child.tagName.toLowerCase();
 
         const cmd = [layer, action];
         switch (action) {
           case 'line':
             var points = [];
-            $command.find('point').each(function () {
-              const $point = $(this);
-              const x = parseInt($point.attr('x') || 0, 10);
-              const y = parseInt($point.attr('y') || 0, 10);
+
+            child.querySelectorAll('point');
+
+            // $command.find('point').each(function () {
+            for (let point of Array.from(child.querySelectorAll('point'))) {
+              // const $point = $(this);
+              const x = parseInt(point.getAttribute('x') || 0, 10);
+              const y = parseInt(point.getAttribute('y') || 0, 10);
               return points.push([x, y]);
-            });
+            }
             cmd.push(points);
             break;
         }
 
-        cmd.push(collectOpts($command));
+        cmd.push(collectOpts(child));
 
         return list.push(cmd);
-      });
+      }
 
       props['drawlist'] = list;
     }

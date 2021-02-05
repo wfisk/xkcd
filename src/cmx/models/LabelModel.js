@@ -12,7 +12,7 @@ export default class LabelModel extends Model {
     super(cmx, {
       t: '',
       pose: '0,-10|0,0',
-      content: '<tspan x="0" y="0em">hello world</tspan>'
+      content: '<tspan x="0" y="0em">ONE LAZY MORNING</tspan>'
     });
   }
 

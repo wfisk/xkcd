@@ -3,6 +3,7 @@ import { scaleLinear as d3ScaleLinear } from 'd3-scale';
 import { select as d3Select } from 'd3-selection';
 import {
   curveBasis as d3CurveBasis,
+  curveLinear as d3CurveLinear,
   line as d3Line,
   lineRadial as d3LineRadial
 } from 'd3-shape';
@@ -130,6 +131,12 @@ var render = function (_delta_root, back, _delta_before) {
   const line = this['line'] || d3Line();
   const magnitude = this['magnitude'] || 0.003;
 
+  const xkcdConfig = {
+    xlim: this['xl'] || [0, 200],
+    ylim: this['yl'] || [0, 200],
+    magnitude: this['magnitude'] || 0.003
+  };
+
   const xkcd = new Xkcd();
 
   const xkcdInterpolator = (pts) => {
@@ -148,11 +155,13 @@ var render = function (_delta_root, back, _delta_before) {
   };
 
   const _delta_path = _delta_el.append('path').attr('class', 'cmx-path');
+
   dynamic(this['fill'], function (val) {
     if (val) {
       return _delta_path.style('fill', val);
     }
   });
+
   if (back) {
     dynamic(this['back-stroke-width'], function (val) {
       if (val) {
@@ -164,9 +173,12 @@ var render = function (_delta_root, back, _delta_before) {
         return _delta_path.style('stroke', val);
       }
     });
-    dynamic(this['points'], (val) =>
-      _delta_path.attr('d', line.interpolate(backInterpolator)(val))
-    );
+    dynamic(this['points'], function (val) {
+      // _delta_path.attr('d', line.interpolate(backInterpolator)(val))
+
+      let val2 = val.map((it) => [_.round(it[0], 2), _.round(it[1], 2)]);
+      _delta_path.attr('d', line.curve(d3CurveLinear)(val));
+    });
   } else {
     dynamic(this['stroke-width'], function (val) {
       if (val) {
@@ -175,12 +187,22 @@ var render = function (_delta_root, back, _delta_before) {
     });
     dynamic(this['stroke'], function (val) {
       if (val) {
-        return _delta_path.style('stroke', val);
+        //return _delta_path.style('stroke', val);
       }
     });
-    dynamic(this['points'], (val) =>
-      _delta_path.attr('d', line.interpolate(xkcdInterpolator)(val))
-    );
+
+    dynamic(this['points'], function (val) {
+      //_delta_path.attr('d', line.interpolate(xkcdInterpolator)(val));
+
+      let val2 = xkcd.render(
+        val,
+        xkcdConfig.xlim,
+        xkcdConfig.ylim,
+        xkcdConfig.magnitude
+      );
+
+      _delta_path.attr('d', line.curve(d3CurveLinear)(val2));
+    });
   }
 
   return _delta_root;
