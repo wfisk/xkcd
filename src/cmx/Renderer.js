@@ -12,7 +12,7 @@ import _ from 'lodash';
 import Xkcd from './Xkcd';
 
 // magic evaluator
-const ξ = function (thing, fn) {
+const _Xi_ = function (thing, fn) {
   let lastVal = undefined;
   return function () {
     let val = thing;
@@ -43,7 +43,7 @@ var render = function (_delta_root, back, _delta_before) {
     if (prop === undefined) {
       return;
     }
-    const evaluator = ξ(prop, updater);
+    const evaluator = _Xi_(prop, updater);
     this.updaters.push(evaluator);
     return evaluator;
   };

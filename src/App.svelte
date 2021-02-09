@@ -7,6 +7,13 @@
     publishEvent
   } from '/src/cmx/edit_scripts/main';
 
+  import Actor from '/src/components/cmx/Actor.svelte';
+  import Bubble from '/src/components/cmx/Bubble.svelte';
+  import Drawing from '/src/components/cmx/Drawing.svelte';
+  import Label from '/src/components/cmx/Label.svelte';
+  import Scene from '/src/components/cmx/Scene.svelte';
+  import Text from '/src/components/cmx/Text.svelte';
+
   publishEvent('cmx:loaded');
   // underscore.string = underscore.str = underscoreString;
   // d3ext();
@@ -15,7 +22,7 @@
 
 <scene id="scene1">
   <label t="translate(0,346)">
-    <tspan x="0" y="0em">Two afternoon</tspan>
+    <tspan x="0" y="0em">ONE LAZY MORNING</tspan>
   </label>
   <drawing t="translate(0,31)">
     <line stroke="green">
@@ -27,7 +34,7 @@
     t="translate(71,19) rotate(-2)"
     pose="-11,9|-5,117|-11,99|-11,89|-11,79|-11,59|-16,34|-21,9|-6,34|-1,9|-18,79|-18,59|-6,79|-1,59">
     <bubble t="translate(9,11)" pose="0,0|-20,10|-81,49|19,66|-21,145|-73,109">
-      <tspan x="0" y="-3em">I had an idea today</tspan>
+      <tspan x="0" y="-3em">I HAD AN IDEA TODAY</tspan>
       <tspan x="0" y="0em">anyone without</tspan>
       <tspan x="0" y="1em">much talent</tspan>
       <tspan x="0" y="2em">could publish</tspan>
@@ -45,6 +52,13 @@
     </bubble>
   </actor>
 </scene>
+
+<Scene>
+  <Label>
+    <Text x={0} y={0}>ONE LAZY MORNING</Text>
+  </Label>
+  <Actor />
+</Scene>
 
 <style>
 </style>
